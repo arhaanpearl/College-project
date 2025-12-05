@@ -48,88 +48,92 @@ Ideal for patients requiring complex medical attention.`,
   ];
 
   return (
-    <section className="w-full py-20 bg-teal-900 container mx-auto px-12">
+    <section className="w-full py-20 bg-teal-900">
+      <div className="container mx-auto px-6 md:px-12">
 
-      <div className="text-center text-white mb-12">
-        <button className="px-5 py-1 bg-white/20 text-sm font-semibold rounded-full">
-          OUR SERVICES
-        </button>
 
-        <h2 className="text-4xl font-bold mt-4">Comprehensive</h2>
-        <h2 className="text-4xl font-bold text-gray-300">
-          Healthcare Solutions
-        </h2>
-      </div>
+        <div className="text-center text-white mb-12">
+          <button className="px-5 py-1 bg-white/20 text-sm font-semibold rounded-full">
+            OUR SERVICES
+          </button>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto px-4">
-        {services.map((item) => (
-          <div
-            key={item.id}
-            className="bg-white rounded-xl overflow-hidden shadow-md hover:scale-[1.02] transition"
-          >
+          <h2 className="text-3xl md:text-4xl font-bold mt-4">
+            Comprehensive
+          </h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-300">
+            Healthcare Solutions
+          </h2>
+        </div>
 
-            <div className="relative">
-              <img src={item.img} alt={item.title} className="h-60 w-full" />
-              <span className="absolute top-3 left-3 bg-teal-600 text-white text-xs px-3 py-1 rounded-full">
-                {item.tag}
-              </span>
 
-              <span className="absolute top-3 right-3 bg-white/80 p-2 rounded-full text-gray-700">
-                ❤️
-              </span>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          {services.map((item) => (
+            <div
+              key={item.id}
+              className="bg-white rounded-xl overflow-hidden shadow-md hover:scale-[1.03] transition-transform"
+            >
+              <div className="relative">
+                <img
+                  src={item.img}
+                  alt={item.title}
+                  className="h-48 md:h-60 w-full object-cover"
+                />
+                <span className="absolute top-3 left-3 bg-teal-600 text-white text-xs px-3 py-1 rounded-full">
+                  {item.tag}
+                </span>
+                <span className="absolute top-3 right-3 bg-white/80 p-2 rounded-full text-gray-700 cursor-pointer">
+                  ❤️
+                </span>
+                <h3 className="absolute bottom-3 left-3 text-xl text-white font-bold drop-shadow-lg">
+                  {item.title}
+                </h3>
+              </div>
 
-              <h3 className="absolute bottom-3 left-3 text-xl text-white font-bold drop-shadow-lg">
-                {item.title}
-              </h3>
+              <div className="p-6">
+                <p className="text-gray-600 mb-6">{item.short}</p>
+                <button
+                  onClick={() => setSelectedService(item)}
+                  className="px-5 py-2 bg-teal-900 text-white rounded-full text-sm flex items-center gap-2 hover:scale-105 transition-transform"
+                >
+                  Learn More →
+                </button>
+              </div>
             </div>
+          ))}
+        </div>
 
 
-            <div className="p-6">
-              <p className="text-gray-600 mb-6">{item.short}</p>
+        {selectedService && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+            <div className="bg-white rounded-xl max-w-lg w-full p-6 relative max-h-[80vh] overflow-auto">
+              <button
+                className="absolute top-3 right-3 text-xl font-bold hover:text-gray-700"
+                onClick={() => setSelectedService(null)}
+              >
+                ✖
+              </button>
+
+              <img
+                src={selectedService.img}
+                alt={selectedService.title}
+                className="w-full h-56 md:h-64 object-cover rounded-lg"
+              />
+
+              <h2 className="text-2xl font-bold mt-4">{selectedService.title}</h2>
+              <p className="text-gray-700 mt-3 whitespace-pre-line text-sm md:text-base">
+                {selectedService.full}
+              </p>
 
               <button
-                onClick={() => setSelectedService(item)}
-                className="px-5 py-2 bg-teal-900 text-white rounded-full text-sm flex items-center gap-2"
+                onClick={() => setSelectedService(null)}
+                className="mt-6 px-5 py-2 bg-teal-700 text-white rounded-full hover:scale-105 transition-transform"
               >
-                Learn More →
+                Close
               </button>
             </div>
           </div>
-        ))}
+        )}
       </div>
-
-      {selectedService && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-xl max-w-lg w-full p-6 relative">
-            <button
-              className="absolute top-3 right-3 text-xl"
-              onClick={() => setSelectedService(null)}
-            >
-              ✖
-            </button>
-
-            <img
-              src={selectedService.img}
-              alt={selectedService.title}
-              className="w-full h-56 object-cover rounded-lg"
-            />
-
-            <h2 className="text-2xl font-bold mt-4">
-              {selectedService.title}
-            </h2>
-            <p className="text-gray-700 mt-3 whitespace-pre-line">
-              {selectedService.full}
-            </p>
-
-            <button
-              onClick={() => setSelectedService(null)}
-              className="mt-6 px-5 py-2 bg-teal-700 text-white rounded-full"
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      )}
     </section>
   );
 }
